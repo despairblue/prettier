@@ -1,3 +1,80 @@
+exports[`test break-after-assignment.js 1`] = `
+"// set
+b.toString = function(): string {
+  return \"foo\";
+};
+
+// Should stay on one line
+const short1 = short()
+let short2 = short()
+short2 = short()
+
+const short1 = short
+let short2 = short
+short2 = short
+
+// Should break at \`=\` operator and indent
+
+const looooooooooooooongvarname = looooooooooooooooooooooooooooooooooooooooooooooongThing()
+let looooooooooooooongvarname = looooooooooooooooooooooooooooooooooooooooooooooongThing()
+looooooooooooooongvarname = looooooooooooooooooooooooooooooooooooooooooooooongThing()
+
+const looooooooooooooongvarname = looooooooooooooooooooooooooooooooooooooooooooooongThing
+let looooooooooooooongvarname = looooooooooooooooooooooooooooooooooooooooooooooongThing
+looooooooooooooongvarname = looooooooooooooooooooooooooooooooooooooooooooooongThing
+
+// real code
+
+function * sendMail () {
+  try {
+    const pdfStream =
+          yield contractsService.getLandlordContractStreamFromBooking(booking)
+  } catch (error) {
+    report(error)
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// set
+b.toString = function(): string {
+  return \"foo\";
+};
+
+// Should stay on one line
+const short1 = short();
+let short2 = short();
+short2 = short();
+
+const short1 = short;
+let short2 = short;
+short2 = short;
+
+// Should break at \`=\` operator and indent
+const looooooooooooooongvarname =
+  looooooooooooooooooooooooooooooooooooooooooooooongThing();
+let looooooooooooooongvarname =
+  looooooooooooooooooooooooooooooooooooooooooooooongThing();
+looooooooooooooongvarname =
+  looooooooooooooooooooooooooooooooooooooooooooooongThing();
+
+const looooooooooooooongvarname =
+  looooooooooooooooooooooooooooooooooooooooooooooongThing;
+let looooooooooooooongvarname =
+  looooooooooooooooooooooooooooooooooooooooooooooongThing;
+looooooooooooooongvarname =
+  looooooooooooooooooooooooooooooooooooooooooooooongThing;
+
+// real code
+function* sendMail() {
+  try {
+    const pdfStream =
+      yield contractsService.getLandlordContractStreamFromBooking(booking);
+  } catch (error) {
+    report(error);
+  }
+}
+"
+`;
+
 exports[`test directives.js 1`] = `
 "\"use strict\";
 
@@ -65,15 +142,15 @@ comp2A = (
   </div>
 );
 
-const comp3 = (
-  <div style={styles} key=\"something\">Bump to next line without parens</div>
-);
+const comp3 =
+  <div style={styles} key=\"something\">Bump to next line without parens</div>;
 
-const comp4 = (
-  <div style={styles} key=\"something\">
-    Create wrapping parens and indent <strong>all the things</strong>.
-  </div>
-);
+const comp4 =
+  (
+    <div style={styles} key=\"something\">
+      Create wrapping parens and indent <strong>all the things</strong>.
+    </div>
+  );
 
 const comp5 = <div>Keep it on one line.</div>;
 "
@@ -107,15 +184,16 @@ short_open =
     hello
   </BaseForm>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-long_closed = (
-  <BaseForm
-    url=\"/auth/google\"
-    method=\"GET\"
-    colour=\"blue\"
-    size=\"large\"
-    submitLabel=\"Sign in with Google\"
-  />
-);
+long_closed =
+  (
+    <BaseForm
+      url=\"/auth/google\"
+      method=\"GET\"
+      colour=\"blue\"
+      size=\"large\"
+      submitLabel=\"Sign in with Google\"
+    />
+  );
 
 long_open = (
   <BaseForm
@@ -189,15 +267,17 @@ const render2 = ({ styles }) => (
   </div>
 );
 
-const render3 = ({ styles }) => (
-  <div style={styles} key=\"something\">Bump to next line without parens</div>
-);
+const render3 =
+  ({ styles }) => (
+    <div style={styles} key=\"something\">Bump to next line without parens</div>
+  );
 
-const render4 = ({ styles }) => (
-  <div style={styles} key=\"something\">
-    Create wrapping parens and indent <strong>all the things</strong>.
-  </div>
-);
+const render4 =
+  ({ styles }) => (
+    <div style={styles} key=\"something\">
+      Create wrapping parens and indent <strong>all the things</strong>.
+    </div>
+  );
 
 const render5 = ({ styles }) => <div>Keep it on one line.</div>;
 
@@ -245,19 +325,20 @@ const render7 = () => (
 );
 
 const render8 = props => <div>{props.text}</div>;
-const render9 = props => (
-  <div>{props.looooooooooooooooooooooooooooooong_text}</div>
-);
-const render10 = props => (
-  <div>
-    {props.even_looooooooooooooooooooooooooooooooooooooooooonger_contents}
-  </div>
-);
+const render9 =
+  props => <div>{props.looooooooooooooooooooooooooooooong_text}</div>;
+const render10 =
+  props => (
+    <div>
+      {props.even_looooooooooooooooooooooooooooooooooooooooooonger_contents}
+    </div>
+  );
 
-const notJSX = (aaaaaaaaaaaaaaaaa, bbbbbbbbbbb) =>
-  this
-    .someLongCallWithParams(aaaaaa, bbbbbbb)
-    .anotherLongCallWithParams(cccccccccccc, dddddddddddddddddddddd);
+const notJSX =
+  (aaaaaaaaaaaaaaaaa, bbbbbbbbbbb) =>
+    this
+      .someLongCallWithParams(aaaaaa, bbbbbbb)
+      .anotherLongCallWithParams(cccccccccccc, dddddddddddddddddddddd);
 "
 `;
 

@@ -237,8 +237,13 @@ function genericPrintNoParens(path, options, print) {
           path.call(print, "left"),
           " ",
           n.operator,
-          " ",
-          path.call(print, "right")
+          conditionalGroup([
+            concat([ " ", path.call(print, "right") ]),
+            indent(
+              options.tabWidth,
+              concat([ line, path.call(print, "right") ])
+            )
+          ])
         ])
       );
     case "BinaryExpression":
@@ -837,7 +842,17 @@ function genericPrintNoParens(path, options, print) {
       return multilineGroup(concat(parts));
     case "VariableDeclarator":
       return n.init
-        ? concat([ path.call(print, "id"), " = ", path.call(print, "init") ])
+        ? concat([
+          path.call(print, "id"),
+          " =",
+          conditionalGroup([
+            concat([ " ", path.call(print, "init") ]),
+            indent(
+              options.tabWidth,
+              concat([ line, path.call(print, "init") ])
+            )
+          ])
+        ])
         : path.call(print, "id");
     case "WithStatement":
       return concat([
