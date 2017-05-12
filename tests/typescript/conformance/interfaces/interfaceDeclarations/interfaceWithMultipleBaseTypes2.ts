@@ -14,8 +14,15 @@ interface Derived extends Base, Base2 {
     x: { b: string }
 }
 
-interface Derived2 extends Base, Base2 { // error
-    x: { a: number; b: string }
+// comment above TSInterfaceDeclaration
+interface Derived2 extends Base, Base2 { // comment next TSInterfaceDeclaration
+    // comment above TSTypeLiteral
+    x: { 
+      a: number; 
+      // comment inside of ObjectTypeAnnotation
+      b: string 
+    }
+    // comment below TSTypeLiteral
 }
 
 interface Derived3 extends Base, Base2 {

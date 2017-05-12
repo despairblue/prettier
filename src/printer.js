@@ -762,6 +762,14 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     }
     case "TSInterfaceDeclaration":
+      // Attach comments to the TSInterfaceBody since we want to print them
+      // inside of the body.
+      if (n.comments) {
+        n.body.comments 
+          ? n.body.comments = n.comments.concat(n.body.comments)
+          : n.body.comments = n.comments
+      }
+      
       parts.push(
         printTypeScriptModifiers(path, options, print),
         "interface ",
@@ -770,10 +778,10 @@ function genericPrintNoParens(path, options, print, args) {
         " "
       );
       
-      if (n.heritageClauses) {
-        prefix.push(
+      if (n.heritage.length) {
+        parts.push(
           "extends ",
-          join(", ", path.map(print, "heritageClauses")),
+          join(", ", path.map(print, "heritage")),
           " "
         );
       }
@@ -857,12 +865,11 @@ function genericPrintNoParens(path, options, print, args) {
       let content;
       if (props.length === 0 && !n.typeAnnotation) {
         if (!hasDanglingComments(n)) {
-          return concat([concat(prefix), leftBrace, rightBrace]);
+          return concat([leftBrace, rightBrace]);
         }
 
         content = group(
           concat([
-            concat(prefix),
             leftBrace,
             comments.printDanglingComments(path, options),
             softline,
@@ -871,8 +878,8 @@ function genericPrintNoParens(path, options, print, args) {
         );
       } else {
         content = concat([
-          concat(prefix),
           leftBrace,
+          comments.printDanglingComments(path, options),
           indent(
             align(
               parentIsUnionTypeAnnotation ? 2 : 0,
@@ -1628,6 +1635,8 @@ function genericPrintNoParens(path, options, print, args) {
       }
       parts.push(concat(printClass(path, options, print)));
       return concat(parts);
+    case "TSInterfaceHeritage":
+      return path.call(print, "id");
     case "TSHeritageClause":
       return join(", ", path.map(print, "types"));
     case "TSExpressionWithTypeArguments":
